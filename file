@@ -1,0 +1,20 @@
+version: '3'
+services:
+  react-app:
+    container_name: react-app
+    build:
+      context: ./react-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./react-app:/app
+  laravel-app:
+    container_name: laravel-app
+    build:
+      context: ./laravel-app
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./laravel-app:/var/www/html
