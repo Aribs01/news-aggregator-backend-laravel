@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('prefered_news_source', ['All', 'BBC', 'Guardian', 'NewYorkTimes'])->default('All');
+            $table->enum('prefered_news_source', ['BBC', 'Guardian', 'NewYorkTimes'])->default('BBC');
             $table->rememberToken();
             $table->timestamps();
         });
