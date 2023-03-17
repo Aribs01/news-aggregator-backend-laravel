@@ -1,20 +1,39 @@
 version: '3'
+
 services:
-  react-app:
-    container_name: react-app
+  news-react:
+    container_name: news-react
     build:
-      context: ./react-app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./news-react/Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./react-app:/app
-  laravel-app:
-    container_name: laravel-app
+      - ./news-react:/app
+  news-laravel:
+    container_name: news-laravel
     build:
-      context: ./laravel-app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./news-laravel/Dockerfile
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
-      - ./laravel-app:/var/www/html
+      - ./news-laravel:/var/www/html
+    depends_on:
+      - db
+  db:
+    container_name: news-db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: news
+      MYSQL_USER: newsuser
+      MYSQL_PASSWORD: newspass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - news-db-data:/var/lib/mysql
+
+volumes:
+  news-db-data:
